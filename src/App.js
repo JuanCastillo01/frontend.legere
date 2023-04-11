@@ -3,15 +3,39 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ModuloQueLivro from './ModuloQueLivro/ModuloQueLivro';
 import AdicionarLivros from './Admin/AdicionarLivros';
 import Paper from '@mui/material/Paper';
-import background from "./imagemFundo.jpg"
-import { blue, yellow } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material';
+import Layout from './Layout';
+import Auth from './Auth';
+import ListarLivros from './Admin/ListarLivros';
 function App() {
   const [user,setUser] = useState(null);
   const [userType,setUserType] = useState(null);
+  const theme = createTheme({
+    palette: {
+      mode: 'light',
+      primary: {
+        main: '#60392a',
+      },
+      secondary: {
+        main: '#ff0000',
+      },
+      background: {
+        default: '#F3F3E7',
+        paper: '#e6e6c7',
+      },
+      error: {
+        main: '#0056ff',
+      },
+      warning: {
+        main: '#0097ff',
+      },
+    },
+  });
 
   return (
-    <Paper>
+    <ThemeProvider theme={theme}>
         <Router>
+          <Layout>
           <Switch>
             <Route exact path={"/queLivro"}>
               <ModuloQueLivro user={user} userType={userType} setUser={setUser} setUserType={setUserType}/>
@@ -20,7 +44,7 @@ function App() {
               <div className="mod-quelivro">Pagina com mecanicas Quelivro 'Trademark'</div>
             </Route>
             <Route exact path={"/admin"}>
-              <div className="Pagina-login-adm">Autentificação</div>
+            <Auth/>
             </Route>
             <Route exact path={"/admin/menu"}>
               <div className="principal-pagina-adm">pagina menu de administração</div>
@@ -29,14 +53,16 @@ function App() {
               <AdicionarLivros/>
             </Route>
             <Route exact path={"/admin/lista"}>
-              <div className="listar-livro-adm">pagina adicionar livro</div>
+                <ListarLivros/>
             </Route>
             <Route path={"*"}>
               <div className="geral">geral</div>
             </Route>
           </Switch>
+          </Layout>
         </Router>
-    </Paper>
+    </ThemeProvider>
+    
   );
 }
 

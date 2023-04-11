@@ -1,6 +1,7 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Typography, Box, Container, Grid} from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 const AdicionarLivros = () => {
     const [nome,setNome] = useState('');
     const [autor, setAutor] = useState('');
@@ -28,137 +29,158 @@ const AdicionarLivros = () => {
     }
 
     return (
-        <Container>
-            <Typography 
-            variant="h3"
-            gutterBottom
-            align="center"
-            >
-                Adicione um novo livro
-            </Typography>
-            <form noValidate autoComplete="off" onSubmit={handleEnvio}>
-                <TextField 
-                    variant="outlined"
-                    label="Nome do Livro" 
-                    margin="dense" 
-                    required 
-                    onChange={(e) => {setNome(e.target.value);}}
-                    inputProps={{maxLength:50}}
-                />
-                <TextField 
-                    variant="outlined"
-                    label="Autor"
-                    margin="dense"
-                    required
-                    onChange={(e) => {setAutor(e.target.value)}}
-                    inputProps={{maxLength:100}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Trecho 1"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setTrecho1(e.target.value)}}
-                    inputProps={{maxLength:300}}/>
-                <TextField
-                    variant="outlined"
-                    label="Trecho 2"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setTrecho2(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Trecho 3"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setTrecho3(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Dica Facil"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setDica1(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Dica Media"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setDica2(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Dica Dificil"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setDica3(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField 
-                    variant="outlined" 
-                    label="Inicio do resumo " 
-                    margin="dense" 
-                    required 
-                    multiline
-                    rows={3} 
-                    fullWidth  
-                    onChange={(e) => {setResumo1(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Meio do resumo"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setResumo2(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <TextField
-                    variant="outlined"
-                    label="Final do resumo"
-                    margin="dense"
-                    required
-                    fullWidth
-                    multiline
-                    rows={3}
-                    onChange={(e) => {setResumo3(e.target.value)}}
-                    inputProps={{maxLength:300}}
-                />
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                >Cria</Button>
-            </form> 
-        </Container>
+        <Container className="tela-acionar-livros">
+            <Box borderRadius={6} border={3}>
+                <Typography
+                    variant="h3"
+                    align="center"
+                >
+                    Adicione um novo livro
+                </Typography>
+            </Box>
+
+            <Box padding={2}>
+
+                <form noValidate autoComplete="off" onSubmit={handleEnvio}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <TextField
+                                variant="filled"
+                                label="Nome do Livro" 
+                                margin="dense" 
+                                required 
+                                fullWidth
+                                onChange={(e) => {setNome(e.target.value);}}
+                                inputProps={{maxLength:50}}
+                                />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField 
+                                variant="filled"
+                                label="Autor" 
+                                margin="dense"
+                                required
+                                fullWidth        
+                                onChange={(e) => {setAutor(e.target.value)}}
+                                inputProps={{maxLength:100}}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Trecho 1"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setTrecho1(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Trecho 2"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setTrecho2(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Trecho 3"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setTrecho3(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Dica Facil"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setDica1(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                                />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Dica Media"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setDica2(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                                />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Dica Dificil"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setDica3(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                                />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField 
+                                variant="filled" 
+                                label="Inicio do resumo " 
+                                margin="dense" 
+                                required 
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setResumo1(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Meio do resumo"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setResumo2(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="filled"
+                                label="Final do resumo"
+                                margin="dense"
+                                required
+                                fullWidth
+                                multiline
+                                onChange={(e) => {setResumo3(e.target.value)}}
+                                inputProps={{maxLength:300}}
+                            />
+                        </Grid>
+                    </Grid>
+                            <Button sx={{marginTop:1}} type="submit" variant="contained">Criar</Button>
+                </form> 
+        
+            </Box>
+
+    </Container>
     );
 }
- 
+
 export default AdicionarLivros;

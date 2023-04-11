@@ -10,15 +10,33 @@ const ModuloQueLivro = ({user,setUser,userType,setUserType}) => {
     const [passwordToCheck,setPasswordToCheck] = useState(null);
     const [confirmPassword,setConfirmPassword] = useState(null);
     const [formMode,setFormMode] =useState("Login");
+    const [queLivroObject,setQueLivroObject] = useState([]);
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/api/quelivro").
+        then( (res) => { 
+            if (!res.ok){throw Error("resposta do servidor não ok")}
+            return res.json();
+        }).then( (data) => {
+            setQueLivroObject(data);
+        }).catch((err)=>{console.log(err.message)})
+    },[])
 
     return (
     <div className="modulo-principal-quelivro">
         <Container>
                 <Tooltip title={tutorialButton}>
-                    <Button size="large" variant="text" on ><HelpIcon/></Button>
+                    <Button size="large" variant="text" ><HelpIcon/></Button>
                 </Tooltip>
                 <Box>
-                    
+                    <ol className="lista">
+                        <li>
+                            lista
+                        </li>
+                        {queLivroObject && queLivroObject.map((livro)=>(
+                            <div key={livro.sequencial}>{livro.nomeLivro}</div>
+                        ))}
+                    </ol>
                 </Box>
         </Container>
     </div>);
