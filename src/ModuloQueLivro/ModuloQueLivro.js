@@ -12,16 +12,7 @@ const ModuloQueLivro = ({user,setUser,userType,setUserType}) => {
     const [formMode,setFormMode] =useState("Login");
     const [queLivroObject,setQueLivroObject] = useState([]);
 
-    useEffect(()=>{
-        fetch("http://localhost:8080/api/quelivro").
-        then( (res) => { 
-            if (!res.ok){throw Error("resposta do servidor não ok")}
-            return res.json();
-        }).then( (data) => {
-            setQueLivroObject(data);
-        }).catch((err)=>{console.log(err.message)})
-    },[])
-
+    
     return (
     <div className="modulo-principal-quelivro">
         <Container>

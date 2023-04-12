@@ -50,6 +50,7 @@ const AdicionarLivros = () => {
                                 margin="dense" 
                                 required 
                                 fullWidth
+                                value={nome}   
                                 onChange={(e) => {setNome(e.target.value);}}
                                 inputProps={{maxLength:50}}
                                 />
@@ -60,7 +61,8 @@ const AdicionarLivros = () => {
                                 label="Autor" 
                                 margin="dense"
                                 required
-                                fullWidth        
+                                fullWidth
+                                value={autor}   
                                 onChange={(e) => {setAutor(e.target.value)}}
                                 inputProps={{maxLength:100}}
                             />
@@ -73,6 +75,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={trecho1}   
                                 onChange={(e) => {setTrecho1(e.target.value)}}
                                 inputProps={{maxLength:300}}
                             />
@@ -85,6 +88,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={trecho2}   
                                 onChange={(e) => {setTrecho2(e.target.value)}}
                                 inputProps={{maxLength:300}}
                             />
@@ -97,6 +101,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={trecho3}
                                 onChange={(e) => {setTrecho3(e.target.value)}}
                                 inputProps={{maxLength:300}}
                             />
@@ -109,6 +114,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={dica1}
                                 onChange={(e) => {setDica1(e.target.value)}}
                                 inputProps={{maxLength:300}}
                                 />
@@ -121,6 +127,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={dica2}
                                 onChange={(e) => {setDica2(e.target.value)}}
                                 inputProps={{maxLength:300}}
                                 />
@@ -133,6 +140,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={dica3}
                                 onChange={(e) => {setDica3(e.target.value)}}
                                 inputProps={{maxLength:300}}
                                 />
@@ -145,6 +153,7 @@ const AdicionarLivros = () => {
                                 required 
                                 fullWidth
                                 multiline
+                                value={resumo1}
                                 onChange={(e) => {setResumo1(e.target.value)}}
                                 inputProps={{maxLength:300}}
                             />
@@ -157,6 +166,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={resumo2}
                                 onChange={(e) => {setResumo2(e.target.value)}}
                                 inputProps={{maxLength:300}}
                             />
@@ -169,6 +179,7 @@ const AdicionarLivros = () => {
                                 required
                                 fullWidth
                                 multiline
+                                value={resumo3}
                                 onChange={(e) => {setResumo3(e.target.value)}}
                                 inputProps={{maxLength:300}}
                             />

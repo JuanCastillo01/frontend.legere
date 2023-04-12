@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ModuloQueLivro from './ModuloQueLivro/ModuloQueLivro';
 import AdicionarLivros from './Admin/AdicionarLivros';
-import Paper from '@mui/material/Paper';
 import { ThemeProvider, createTheme } from '@mui/material';
-import Layout from './Layout';
-import Auth from './Auth';
+import Layout from '../src/Admin/Layout';
 import ListarLivros from './Admin/ListarLivros';
 function App() {
   const [user,setUser] = useState(null);
@@ -44,7 +42,6 @@ function App() {
               <div className="mod-quelivro">Pagina com mecanicas Quelivro 'Trademark'</div>
             </Route>
             <Route exact path={"/admin"}>
-            <Auth/>
             </Route>
             <Route exact path={"/admin/menu"}>
               <div className="principal-pagina-adm">pagina menu de administração</div>
