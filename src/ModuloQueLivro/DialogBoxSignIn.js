@@ -1,5 +1,5 @@
 import { Password } from "@mui/icons-material";
-import { Dialog,TextField } from "@mui/material";
+import { Alert, Button, Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,Link,Snackbar,TextField } from "@mui/material";
 import { useState } from "react";
 
 const DialogBoxSignIn = () => {
@@ -9,34 +9,55 @@ const DialogBoxSignIn = () => {
   const [senhaConfirm,setSenhaConfirm] = useState('');
   const [error,setError] =useState(false);
   const [userType,setUsertype] = useState(null);
+  const [dialogState,setDialogState] = useState(true);
 
   const handleSubmit = () => {
     if (!(senha === senhaConfirm)){
       setError("Valores de senha não são iguais");
+      setSenha('');
+      setSenhaConfirm('');
+      return
     }
-    if (email && username && senha && senha){
+    if (!email || !username || !senha || !senhaConfirm){
       setError("Campos não preenchidos");
+      return
+    }
+    if (username!=="juan"){
+      setError("Usuario invalido")
+      return
+    }
+    if("consulta invalida" === "consulta"){
+      setError("Email ja utilizado")
+      return
     }
 
     let requestBodyValues = {email,username,senha};
     console.log(requestBodyValues);
+
+    setDialogState(false);
+
   }
   const handleCancel = () => {
-    
+    setEmail('');
+    setUsername('');
+    setSenha('');
+    setSenhaConfirm('');
+    setDialogState(false);
   }
 
   return (
-        <Dialog open={open}>
+        <Dialog open={dialogState} >
             <DialogTitle>Criar uma conta</DialogTitle>
         <DialogContent>
         <TextField
+            autoComplete="off"
             autoFocus
             margin="dense"
             id="email"
             label="Email"
             type="email"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={email}
             onChange={(e)=>{setEmail(e.target.value)}}
             
@@ -46,7 +67,7 @@ const DialogBoxSignIn = () => {
             id="usuario"
             label="Usuario"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={username}
             onChange={(e)=>{setUsername(e.target.value)}}
             
@@ -57,9 +78,9 @@ const DialogBoxSignIn = () => {
             label="Senha"
             type="password"
             fullWidth
-            variant="standard"
-            value={senhaConfirm}
-            onChange={(e)=>{setSenhaConfirm(e.target.value)}}
+            variant="outlined"
+            value={senha}
+            onChange={(e)=>{setSenha(e.target.value)}}
             
           />
           <TextField
@@ -68,7 +89,7 @@ const DialogBoxSignIn = () => {
             label="Confirme a senha"
             type="password"
             fullWidth
-            variant="standard"
+            variant="outlined"
             value={senhaConfirm}
             onChange={(e)=>{setSenhaConfirm(e.target.value)}}
             
@@ -76,12 +97,13 @@ const DialogBoxSignIn = () => {
 
         </DialogContent>
           <DialogActions>
-            <Button onClick={()=>handleCancel()}>Cancel</Button>
-            <Button onClick={()=>handleSubmit()}>Subscribe</Button>
+            <Button variant="contained" onClick={()=>handleCancel()}>Cancel</Button>
+            <Button variant="contained" onClick={()=>handleSubmit()}>Criar</Button>
           </DialogActions>
+          {error && (<Alert severity="error" variant="filled">{error}</Alert>
+          )}
         </Dialog>
     );
-    return {error,username,userType}
-}
+  }
  
 export default DialogBoxSignIn;

@@ -5,36 +5,45 @@ import AdicionarLivros from './Admin/AdicionarLivros';
 import { ThemeProvider, createTheme } from '@mui/material';
 import Layout from '../src/Admin/Layout';
 import ListarLivros from './Admin/ListarLivros';
+import DialogBoxSignIn from './ModuloQueLivro/DialogBoxSignIn';
 function App() {
   const [user,setUser] = useState(null);
   const [userType,setUserType] = useState(null);
   const theme = createTheme({
     palette: {
-      mode: 'light',
+      type: 'light',
       primary: {
-        main: '#60392a',
+        main: '#bdb2a3',
       },
       secondary: {
-        main: '#ff0000',
+        main: 'rgba(208,36,74,0.84)',
       },
       background: {
-        default: '#F3F3E7',
-        paper: '#e6e6c7',
+        default: '#251515',
+        paper: '#f5dbbe',
       },
       error: {
-        main: '#0056ff',
+        main: '#ff1000',
       },
-      warning: {
-        main: '#0097ff',
+      text: {
+        primary: 'rgba(123,121,121,0.87)',
       },
     },
+    typography: {
+      fontSize: 17,
+    },
+  
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
         <Router>
           <Layout>
           <Switch>
+            
+          <Route exact path={"/"}>
+              <DialogBoxSignIn/>
+            </Route>
             <Route exact path={"/queLivro"}>
               <ModuloQueLivro user={user} userType={userType} setUser={setUser} setUserType={setUserType}/>
             </Route>
@@ -53,12 +62,12 @@ function App() {
                 <ListarLivros/>
             </Route>
             <Route path={"*"}>
-              <div className="geral">geral</div>
+              <div className="geral">Error page</div>
             </Route>
           </Switch>
           </Layout>
         </Router>
-    </ThemeProvider>
+    // </ThemeProvider>
     
   );
 }
