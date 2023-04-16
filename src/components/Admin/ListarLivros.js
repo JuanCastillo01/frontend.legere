@@ -1,15 +1,26 @@
 import { Button, Container, Paper, Box, ButtonGroup, Grid } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
-import useFetch from "../usefetch";
+import useFetch from "../../usefetch";
 import { Padding } from "@mui/icons-material";
-
+import DialogEditEntry from "./DialogEditEntry";
+import { render } from "@testing-library/react";
 
 const ListarLivros = () => {
+    
+    const deleteEntryUrl = "http://localhost:8080/api/quelivro/";
+
     const {data:listaItensQueLivro} = useFetch("http://localhost:8080/api/quelivro");
 
-    const [selectedRows,setSelectedRows] = useState(null);
+    const [selectedRows, setSelectedRows] = useState(null);
     
+    const [isPending, setIsPending] = useState(true);
+    const [error, setError] = useState(null);
+    
+    const [livroAlterar, setLivroAlterar] = useState(null);
+
+    const [alterDialogState,setAlterDialogState]   = useState(false);
+
     const colunas  = [
         {field:"sequencial", headerName: 'ID' , width:70},
         {field:"nomeLivro", headerName: 'Nome' , width:200},
@@ -25,22 +36,67 @@ const ListarLivros = () => {
         {field:"trechoDificil", headerName: 'Trecho Dificil' , width:500}
     
     ]
+
     const handleDelete = () => {
         console.log("Delete " + selectedRows);
+        const abortCont = new AbortController();
+
+        fetch(deleteEntryUrl.concat(selectedRows), {method:"Delete",headers: { 'Content-Type': 'application/json' } , signal: abortCont.signal})
+        .then(res => {
+            if (!res.ok) {
+            throw Error('could not fetch the data for that resource');
+            } 
+            return res.json();
+        })
+        .catch(err => {
+            if (err.name === 'AbortError') {
+            console.log('fetch aborted')
+            } else {
+            setIsPending(false);
+            setError(err.message);
+            }
+        })
+        return () => abortCont.abort();
+        
     }
 
     const handleAlterar = () => {
-        console.log("Alterar " + selectedRows);
+        const abortCont = new AbortController();
+
+    const alterar = fetch(`http://localhost:8080/api/quelivro/${selectedRows}`, { signal: abortCont.signal })
+    .then(res => {
+      if (!res.ok) {
+        throw Error('could not fetch the data for that resource');
+      } 
+      return res.json();
+    })
+    .then(data => {
+      setIsPending(false);
+      setLivroAlterar(data);
+      setAlterDialogState(true);
+      setError(null);
+      
+    })
+    .catch(err => {
+      if (err.name === 'AbortError') {
+        console.log('fetch aborted')
+      } else {
+        setIsPending(false);
+        setError(err.message);
+      }
+    })
+    return () => abortCont.abort();
+
     }
 
     const handleSelectRow= (ids) =>{
-        setSelectedRows(ids);    
-        console.log(ids);
+        setSelectedRows(ids);
     }
     
 
     return (
         <Container >
+            {alterDialogState && (<DialogEditEntry/>)}
             <Paper style={{height:500, width: '100%', }}>
             {listaItensQueLivro && 
             
@@ -59,7 +115,7 @@ const ListarLivros = () => {
                             <Button size="large" variant="contained" onClick={(e)=>{handleDelete();}}>Delete</Button>
                         </Grid>
                         <Grid item xs={3}>
-                            <Button size="large" variant="contained" onClick={(e)=>{handleAlterar();}}>Alterar</Button>
+                            <Button size="large" variant="contained" onClick={handleAlterar}>Alterar</Button>
                         </Grid>
                     </Grid>
                 </Box>
