@@ -1,24 +1,13 @@
 import { Button, Container, Paper, Box, ButtonGroup, Grid } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
-import useFetch from "../../usefetch";
-import { Padding } from "@mui/icons-material";
+import useFetch from "../requestModels/usefetch";
 import DialogEditEntry from "./DialogEditEntry";
-import { render } from "@testing-library/react";
 
 const ListarLivros = () => {
-    
-    const deleteEntryUrl = "http://localhost:8080/api/quelivro/";
-
-    const {data:listaItensQueLivro} = useFetch("http://localhost:8080/api/quelivro");
+    const {data:listaItensQueLivro} = useFetch("http://localhost:8080/api/quelivro/todos");
 
     const [selectedRows, setSelectedRows] = useState(null);
-    
-    const [isPending, setIsPending] = useState(true);
-    const [error, setError] = useState(null);
-    
-    const [livroAlterar, setLivroAlterar] = useState(null);
-
     const [alterDialogState,setAlterDialogState]   = useState(false);
 
     const colunas  = [
@@ -41,7 +30,7 @@ const ListarLivros = () => {
         console.log("Delete " + selectedRows);
         const abortCont = new AbortController();
 
-        fetch(deleteEntryUrl.concat(selectedRows), {method:"Delete",headers: { 'Content-Type': 'application/json' } , signal: abortCont.signal})
+        fetch("http://localhost:8080/api/quelivro/".concat(selectedRows), {method:"Delete",headers: { 'Content-Type': 'application/json' } , signal: abortCont.signal})
         .then(res => {
             if (!res.ok) {
             throw Error('could not fetch the data for that resource');
@@ -51,9 +40,6 @@ const ListarLivros = () => {
         .catch(err => {
             if (err.name === 'AbortError') {
             console.log('fetch aborted')
-            } else {
-            setIsPending(false);
-            setError(err.message);
             }
         })
         return () => abortCont.abort();
@@ -61,32 +47,7 @@ const ListarLivros = () => {
     }
 
     const handleAlterar = () => {
-        const abortCont = new AbortController();
-
-    const alterar = fetch(`http://localhost:8080/api/quelivro/${selectedRows}`, { signal: abortCont.signal })
-    .then(res => {
-      if (!res.ok) {
-        throw Error('could not fetch the data for that resource');
-      } 
-      return res.json();
-    })
-    .then(data => {
-      setIsPending(false);
-      setLivroAlterar(data);
-      setAlterDialogState(true);
-      setError(null);
-      
-    })
-    .catch(err => {
-      if (err.name === 'AbortError') {
-        console.log('fetch aborted')
-      } else {
-        setIsPending(false);
-        setError(err.message);
-      }
-    })
-    return () => abortCont.abort();
-
+    
     }
 
     const handleSelectRow= (ids) =>{
@@ -96,10 +57,8 @@ const ListarLivros = () => {
 
     return (
         <Container >
-            {alterDialogState && (<DialogEditEntry/>)}
             <Paper style={{height:500, width: '100%', }}>
             {listaItensQueLivro && 
-            
                 <DataGrid 
                     rows={listaItensQueLivro}
                     columns={colunas}

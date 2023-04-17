@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const usePost = (url,bodyRequest) => {
+const PostFunction = (url,bodyRequest) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -34,4 +34,4 @@ const usePost = (url,bodyRequest) => {
   return { data, isPending, error };
 }
  
-export default usePost;
+export default PostFunction;

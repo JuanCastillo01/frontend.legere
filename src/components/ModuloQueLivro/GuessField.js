@@ -1,25 +1,38 @@
 import { Autocomplete, Button, Grid, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { GameInfoContext } from '../contexts/GameInfoContext';
 
 const GuessField = ({handleTentativa, isPlaying}) => {
+  const {queLivroDataObject,setQueLivroListaTentativas} = useContext(GameInfoContext);
+
   const [nomeTentativa, setNometentativa] = useState(null);
   const [listaTentativas,setListaTentativas] = useState([]);
 
-  let correctValue = "Otelo";
-
-
+  
   const handleOnChange = (valor,novoValor) => {
     setNometentativa(novoValor);
-    
   };
-  
+
+  const handleSubmitField = () =>{
+    if(nomeTentativa!==null){
+      handleTentativa(nomeTentativa, queLivroDataObject.nomeLivro);
+      if(nomeTentativa === queLivroDataObject.nomeLivro){
+        setListaTentativas(prevLista => [...prevLista, [nomeTentativa] ]);
+      } else{
+        setListaTentativas(prevLista => [...prevLista, [nomeTentativa] ]);
+      }
+    }
+  }
+
+  useEffect(()=>{setQueLivroListaTentativas(listaTentativas)},[listaTentativas])
+
   return (
     <>
   {isPlaying && 
   <Grid container alignSelf="inherit" > 
     <Grid item xs={8} >
       <Autocomplete
-        options={['Otelo', 'Dom casmurro', 'Grande Sertão Veredas']}
+        options={['Otelo', 'Dom Casmurro', 'Grande Sertão Veredas']}
         onChange={handleOnChange}
         value={nomeTentativa}
         renderInput={(params) => (
@@ -33,24 +46,10 @@ const GuessField = ({handleTentativa, isPlaying}) => {
         />
     </Grid>
     <Grid item alignSelf="center" textAlign="center" xs={4}>
-      <Button size="large" variant="contained" onClick={()=>{
-        if(nomeTentativa!==null){
-          handleTentativa(nomeTentativa, correctValue);
-          if(nomeTentativa === correctValue){
-            setListaTentativas(prevLista => [...prevLista, [nomeTentativa,"- Correto "] ]);
-          } else{
-            setListaTentativas(prevLista => [...prevLista, [nomeTentativa,"- Errado"] ]);
-          }
-        }
-      }}>Buscar</Button>
-    </Grid>
-
-    
+      <Button size="large" variant="contained" onClick={handleSubmitField}>Buscar</Button>
+    </Grid> 
   </Grid>
   }
-  <Grid item alignSelf="center" textAlign="center" xs={12}>
-      {listaTentativas.map((tentativa,index) => <li key={index}>{tentativa}</li>)}
-    </Grid>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { UsuarioContext } from '../UsuarioContext';
+import { UsuarioContext } from '../../contexts/UsuarioContext';
 
 
 const SignInDialog = ({ open, onClose }) => {
@@ -28,12 +28,35 @@ const SignInDialog = ({ open, onClose }) => {
   };
 
   const handleSignIn = () => {
-    setUser(username);
+    let instanciaSignin = {"nomeUsuario":username,"email":email,"hashPassword": password}
+    if(password!==passwordConfirm){
+      setPassword('');
+      setPasswordConfirm('');    
+      return 
+    }
+    
     setEmail('')
     setUsername('');
     setPassword('');
     setPasswordConfirm('');
-    onClose();
+    
+    const abortCont = new AbortController();
+    
+    fetch("http://localhost:8080/api/Usuario/", {method:"POST", signal: abortCont.signal, headers: { 'Content-Type': 'application/json' }, body:JSON.stringify(instanciaSignin)})
+    .then(res => {
+      if (!res.ok) {
+        throw Error('Não se pude submitir as inofrmçõess');
+      } 
+      return res.json();
+    }).then((data)=>{
+      setUser(data.username)
+      onClose();
+    }).catch(err => {
+      if (err.name === 'AbortError') {
+        console.log('fetch aborted')
+      }
+    })
+    return () => abortCont.abort();
   };
 
   const handleClose = () => {

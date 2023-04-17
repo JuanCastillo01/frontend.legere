@@ -1,15 +1,14 @@
 import { Typography } from "@mui/material";
 
-const Layout = ({children}) => {
+const PrincipalLayout = ({children}) => {
     return (
         <div>
+            <Typography variant="h2" align="center">Cabeçalho </Typography>
             <div className="paginas">
             {children}
             </div>
-            {//<Typography variant="h2" align="center">Rodape/links </Typography>
-            }
         </div>
     );
 }
  
-export default Layout;
+export default PrincipalLayout;

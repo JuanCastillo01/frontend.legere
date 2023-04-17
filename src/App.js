@@ -1,16 +1,25 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 //import { createTheme } from '@mui/material';
 
-import { UsuarioContext } from './components/UsuarioContext';
+import { UsuarioContext } from './components/contexts/UsuarioContext';
 
 import ModuloQueLivro from './components/ModuloQueLivro/ModuloQueLivro';
 import AdicionarLivros from './components/Admin/AdicionarLivros';
-import Layout from '../src/components/Layout';
+import PrincipalLayout from '../src/components/Layouts/PrincipalLayout';
 import ListarLivros from './components/Admin/ListarLivros';
+import ReultadosQueLivros from './components/ResultadosQueLivros/ReultadosQueLivros';
+import { GameInfoContext } from './components/contexts/GameInfoContext';
+import useFetch from './components/requestModels/usefetch';
+
 function App() {
   const [user,setUser] = useState(null);
   const [userType,setUserType] = useState(false);
+
+  const [queLivroListaTentativas,setQueLivroListaTentativas] = useState(null);
+  const [queLivroResultTentativas,setQueLivroResultTentativas] = useState(null);
+  const {data:queLivroDataObject} = useFetch("http://localhost:8080/api/quelivro");
+
 
   useEffect(() => {
     if (user === 'admin'){
@@ -19,49 +28,25 @@ function App() {
   },[user]
   )
 
-  // const theme = createTheme({
-  //   palette: {
-  //     type: 'light',
-  //     primary: {
-  //       main: '#bdb2a3',
-  //     },
-  //     secondary: {
-  //       main: 'rgba(208,36,74,0.84)',
-  //     },
-  //     background: {
-  //       default: '#251515',
-  //       paper: '#f5dbbe',
-  //     },
-  //     error: {
-  //       main: '#ff1000',
-  //     },
-  //     text: {
-  //       primary: 'rgba(123,121,121,0.87)',
-  //     },
-  //   },
-  //   typography: {
-  //     fontSize: 17,
-  //   },
-  
-  // });
-
   return (
     // <ThemeProvider theme={theme}>
-        <Router>
-          <Layout>
-            <Switch>
-            <UsuarioContext.Provider value={{user,setUser,userType}}>
+    <Router>
+      <PrincipalLayout>
+        <Switch>
+          <UsuarioContext.Provider value={{user,setUser,userType}}>
+            <GameInfoContext.Provider value={{queLivroDataObject,setQueLivroResultTentativas,setQueLivroListaTentativas}}>
               <Route exact path={"/"}>
+                <Redirect to={"/queLivro"} />
+              </Route>
+              <Route exact path={"/queLivro"}>
                 <ModuloQueLivro/>
               </Route>
-                <Route exact path={"/queLivro"}>
-                  <ModuloQueLivro/>
+            </GameInfoContext.Provider>
+            <GameInfoContext.Provider value={{queLivroDataObject,queLivroResultTentativas,queLivroListaTentativas}}>
+              <Route exact path={"/quelivro/resultados"}>
+                <ReultadosQueLivros/>
               </Route>
-            <Route exact path={"/quelivro/resultados"}>
-              <div className="mod-quelivro">Pagina com mecanicas Quelivro 'Trademark'</div>
-            </Route>
-            <Route exact path={"/admin"}>
-            </Route>
+            </GameInfoContext.Provider>
             <Route exact path={"/admin/menu"}>
               <div className="principal-pagina-adm">pagina menu de administração</div>
             </Route>
@@ -69,12 +54,11 @@ function App() {
               <AdicionarLivros/>
             </Route>
             <Route exact path={"/admin/lista"}>
-                <ListarLivros/>
+              <ListarLivros/>
             </Route>
-            </UsuarioContext.Provider>
-
-          </Switch>
-      </Layout>
+          </UsuarioContext.Provider>
+        </Switch>
+      </PrincipalLayout>
     </Router>
     // </ThemeProvider>
     

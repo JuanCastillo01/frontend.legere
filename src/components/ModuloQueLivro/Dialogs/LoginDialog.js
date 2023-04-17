@@ -1,10 +1,9 @@
 import { Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { UsuarioContext } from '../UsuarioContext';
-
+import { UsuarioContext } from '../../contexts/UsuarioContext';
 
 const LoginDialog = ({ open, onClose }) => {
-  const {setUser} = useContext(UsuarioContext)
+  const {setUser} = useContext(UsuarioContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
