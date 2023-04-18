@@ -3,14 +3,15 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 //import { createTheme } from '@mui/material';
 
 import { UsuarioContext } from './components/contexts/UsuarioContext';
-
-import ModuloQueLivro from './components/ModuloQueLivro/ModuloQueLivro';
-import AdicionarLivros from './components/Admin/AdicionarLivros';
-import PrincipalLayout from '../src/components/Layouts/PrincipalLayout';
-import ListarLivros from './components/Admin/ListarLivros';
-import ReultadosQueLivros from './components/ResultadosQueLivros/ReultadosQueLivros';
 import { GameInfoContext } from './components/contexts/GameInfoContext';
-import useFetch from './components/requestModels/usefetch';
+
+import PrincipalLayout from '../src/components/Layouts/PrincipalLayout';
+
+import ModuloQueLivro from './pages/ModuloQueLivro';
+import AdicionarLivros from './pages/AdicionarLivros';
+import ListarLivros from './pages/ListarLivros';
+import ReultadosQueLivros from './pages/ReultadosQueLivros';
+import useFetch from './service/usefetch';
 
 function App() {
   const [user,setUser] = useState(null);

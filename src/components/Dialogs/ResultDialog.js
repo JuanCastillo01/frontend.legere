@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { Dialog, DialogTitle, DialogContent, Typography, DialogActions, ButtonGroup, Button } from '@mui/material';
-import { UsuarioContext } from '../../contexts/UsuarioContext';
+
 import { useHistory } from 'react-router-dom';
-import { GameInfoContext } from '../../contexts/GameInfoContext';
+
+import { UsuarioContext } from '../contexts/UsuarioContext';
+import { GameInfoContext } from '../contexts/GameInfoContext';
+
 const ResultDialog = ({ title: titulo, bodyText: Mensagem, number: tentativas, nomeLivro, open, onClose, handleDialogOpenSignIn, handleDialogOpenLogin }) => {
   const {user} = useContext(UsuarioContext);
 

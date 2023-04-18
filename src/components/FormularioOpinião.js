@@ -1,6 +1,6 @@
 import { Button, Grid, Slider, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import PostFunction from '../requestModels/PostFunction'
+import PostFunction from '../service/PostFunction'
 
 const FormularioOpiniao = () => {
   const [satisfacao, setSatisfacao] = useState(3);

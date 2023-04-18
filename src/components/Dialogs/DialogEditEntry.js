@@ -25,8 +25,6 @@ const DialogEditEntry = () => {
         </DialogTitle>
         <DialogContent>
         <form noValidate autoComplete="off" > 
-        {//onSubmit={}
-        }
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
                                 <TextField

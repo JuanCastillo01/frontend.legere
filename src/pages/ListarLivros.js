@@ -1,8 +1,8 @@
 import { Button, Container, Paper, Box, ButtonGroup, Grid } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
-import useFetch from "../requestModels/usefetch";
-import DialogEditEntry from "./DialogEditEntry";
+import useFetch from "../service/usefetch";
+import DialogEditEntry from "../components/Dialogs/DialogEditEntry";
 
 const ListarLivros = () => {
     const {data:listaItensQueLivro} = useFetch("http://localhost:8080/api/quelivro/todos");

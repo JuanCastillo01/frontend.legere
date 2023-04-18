@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogContent, DialogTitle, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import { UsuarioContext } from '../../contexts/UsuarioContext';
+import { UsuarioContext } from '../contexts/UsuarioContext';
 
 
 const SignInDialog = ({ open, onClose }) => {

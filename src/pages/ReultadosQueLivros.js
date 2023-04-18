@@ -1,7 +1,7 @@
 import { Grid, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from "@mui/material";
 import { useContext } from "react";
-import { GameInfoContext } from "../contexts/GameInfoContext";
-import FormularioOpiniao from "./FormularioOpinião";
+import { GameInfoContext } from "../components/contexts/GameInfoContext";
+import FormularioOpiniao from "../components/FormularioOpinião";
 import CheckIcon from '@mui/icons-material/Check';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useRef } from "react";

@@ -1,6 +1,6 @@
 import { Autocomplete, Button, Grid, TextField } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
-import { GameInfoContext } from '../contexts/GameInfoContext';
+import { GameInfoContext } from '../components/contexts/GameInfoContext';
 
 const GuessField = ({handleTentativa, isPlaying}) => {
   const {queLivroDataObject,setQueLivroListaTentativas} = useContext(GameInfoContext);

@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import {Grid,Button,Paper, Typography, ButtonGroup, Tooltip} from "@mui/material";
 
+import {UsuarioContext} from "../components/contexts/UsuarioContext"
+import {GameInfoContext} from "../components/contexts/GameInfoContext"
 
-import {UsuarioContext} from "../contexts/UsuarioContext"
-import {GameInfoContext} from "../contexts/GameInfoContext"
-import SignInDialog from "./Dialogs/SignInDialog";
-import LoginDialog from "./Dialogs/LoginDialog";
-import GuessField from "./GuessField";
-import TutorialDialog from "./Dialogs/TutorialDialog";
-import ResultDialog from "./Dialogs/ResultDialog";
-import { useHistory } from "react-router-dom";
+import SignInDialog from "../components/Dialogs/SignInDialog";
+import LoginDialog from "../components/Dialogs/LoginDialog";
+import GuessField from "../components/GuessField";
+import TutorialDialog from "../components/Dialogs/TutorialDialog";
+import ResultDialog from "../components/Dialogs/ResultDialog";
 import HelpIcon from '@mui/icons-material/Help';
 
 const ModuloQueLivro = () => {
